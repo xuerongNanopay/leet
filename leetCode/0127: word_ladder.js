@@ -1,11 +1,8 @@
 // 127. Word Ladder
 
-// Do not pass, because of Time Limit Exceeded
-// change to BFS, reduce repeat.
-
 var ladderLength = function(beginWord, endWord, wordList) {
 
-  let ret = Number.MAX_SAFE_INTEGER;
+  //let ret = Number.MAX_SAFE_INTEGER;
 
   let doCheck = function(s1, s2) {
     if ( s1.length !== s2.length ) return false;
@@ -18,24 +15,46 @@ var ladderLength = function(beginWord, endWord, wordList) {
     return check === 1 ? true : false;
   }
 
-  let process = function(cur, count) {
-    if ( cur === endWord ) {
-      ret = Math.min(ret, count+1);
-    }
+  let seen = { [beginWord]: true };
+  let queue = [ beginWord ];
+  let ret = 0;
 
-    let len = wordList.length;
-
+  while ( queue.length !== 0 ) {
+    ret++;
+    let len = queue.length;
     for ( let i = 0 ; i < len ; i++ ) {
-      if ( wordList[i] !== 'xxx' && doCheck(cur, wordList[i]) ) {
-        let t = wordList[i];
-        wordList[i] = 'xxx';
-        process(t, count+1);
-        wordList[i] = t;
+      let curWord = queue.shift();
+      if ( curWord === endWord ) return ret;
+
+      for ( let word of wordList) {
+        if ( (! (word in seen)) && doCheck(word, curWord) ) {
+          seen[word] = true;
+          queue.push(word)
+        }
       }
     }
   }
 
-  process(beginWord, 0);
+  return 0;
 
-  return ret === Number.MAX_SAFE_INTEGER ? 0 : ret;
+  // let process = function(cur, count) {
+  //   if ( cur === endWord ) {
+  //     ret = Math.min(ret, count+1);
+  //   }
+
+  //   let len = wordList.length;
+
+  //   for ( let i = 0 ; i < len ; i++ ) {
+  //     if ( wordList[i] !== 'xxx' && doCheck(cur, wordList[i]) ) {
+  //       let t = wordList[i];
+  //       wordList[i] = 'xxx';
+  //       process(t, count+1);
+  //       wordList[i] = t;
+  //     }
+  //   }
+  // }
+
+  // process(beginWord, 0);
+
+  // return ret === Number.MAX_SAFE_INTEGER ? 0 : ret;
 };
