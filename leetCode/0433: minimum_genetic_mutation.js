@@ -1,5 +1,6 @@
 // 433. Minimum Genetic Mutation
 
+// do not accept.
 var minMutation = function(startGene, endGene, bank) {
 
   let letters = ['A', 'C', 'G', 'T'];
