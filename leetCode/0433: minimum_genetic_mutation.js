@@ -20,8 +20,9 @@ var minMutation = function(startGene, endGene, bank) {
           if ( l === tmp ) continue;
           curWord[i] = l;
           let nextWord = curWord.join("");
-          console.log(nextWord, endGene)
-          if ( nextWord === endGene ) return step;
+          if ( nextWord === endGene && nextWord in cache ) {
+            return step;
+          }
 
           if ( nextWord in cache ) {
             queue.push(nextWord.split(""))
