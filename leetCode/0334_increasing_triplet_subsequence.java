@@ -1,5 +1,5 @@
 //334. Increasing Triplet Subsequence
-
+// think this case: [3,5,1,6].
 class Solution {
   public boolean increasingTriplet(int[] nums) {
       int i = Integer.MAX_VALUE;
